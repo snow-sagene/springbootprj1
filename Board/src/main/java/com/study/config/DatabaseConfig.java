@@ -43,7 +43,7 @@ public class DatabaseConfig {
         //이 세션을 통해 쿼리를 실행하고 결과를 반환받는다.
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
-//      factoryBean.setMapperLocations(context.getResources("classpath:/mappers/**/*Mapper.xml"));
+        factoryBean.setMapperLocations(context.getResources("classpath:/mappers/**/*Mapper.xml"));
         return factoryBean.getObject();
     }
 
