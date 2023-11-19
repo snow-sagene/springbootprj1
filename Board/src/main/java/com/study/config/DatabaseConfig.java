@@ -44,6 +44,7 @@ public class DatabaseConfig {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setMapperLocations(context.getResources("classpath:/mappers/**/*Mapper.xml"));
+        factoryBean.setConfiguration(mybatisConfig());
         return factoryBean.getObject();
     }
 
@@ -53,6 +54,12 @@ public class DatabaseConfig {
         //트랜잭션 관리, 예외 변환 등 스프링에 특화된 기능 제공
         //SqlSession을 직접 사용하면 여러 번의 SQL 쿼리 실행 중 예외가 발생했을 때 트랜잭션 롤백 등의 처리를 수동으로 해야 하는 불편함이 있음
         return new SqlSessionTemplate(sqlSessionFactory());
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix="mybatis.configuration")
+    public org.apache.ibatis.session.Configuration mybatisConfig(){
+        return new org.apache.ibatis.session.Configuration();
     }
 
 }
