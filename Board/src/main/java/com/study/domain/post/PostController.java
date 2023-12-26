@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class PostController {
@@ -35,4 +37,19 @@ public class PostController {
 
 
     }
+
+    @GetMapping("post/list.do")
+    public String openPostList(Model model){
+        //서비스에 들어가서 글의 리스트 받아오기
+        List<PostResponse> posts = postService.findAllPost();
+
+        System.out.println(posts);
+
+        //모델에 담아서 화면에 리턴
+        model.addAttribute("posts", posts);
+        return "post/list";
+    }
+
+
 };
+
