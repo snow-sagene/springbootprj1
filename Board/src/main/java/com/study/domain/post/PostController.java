@@ -38,16 +38,25 @@ public class PostController {
 
     }
 
+    //게시글 리스트 페이지
     @GetMapping("post/list.do")
     public String openPostList(Model model){
         //서비스에 들어가서 글의 리스트 받아오기
         List<PostResponse> posts = postService.findAllPost();
 
-        System.out.println(posts);
-
         //모델에 담아서 화면에 리턴
         model.addAttribute("posts", posts);
         return "post/list";
+    }
+
+        //게시글 상세 페이지
+    @GetMapping("post/view.do")
+    public String openPostView(@RequestParam Long id, Model model){
+        //서비스에 들어가서 글의 리스트 받아오기
+        PostResponse post = postService.findPostById(id);
+        //모델에 담아서 화면에 리턴
+        model.addAttribute("post", post);
+        return "post/view";
     }
 
 
