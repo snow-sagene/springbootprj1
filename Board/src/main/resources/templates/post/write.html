@@ -71,7 +71,25 @@
         /*<![CDATA[*/
 
             window.onload = () => {
-                initCreatedDate();
+                renderPostInfo();
+            }
+         // 게시글 상세정보 렌더링
+            function renderPostInfo() {
+                const post = [[ ${post} ]];
+                //백엔드에서 전달된 post가 없다면 오늘날짜를 생성하고 리턴
+                if ( !post ) {
+                    initCreatedDate();
+                    return false;
+                }
+
+                const form = document.getElementById('saveForm');
+                const fields = ['id', 'title', 'content', 'writer', 'noticeYn'];
+                form.isNotice.checked = post.noticeYn;
+                form.createdDate.value = dayjs(post.createdDate).format('YYYY-MM-DD HH:mm');
+
+                fields.forEach(field => {
+                    form[field].value = post[field];
+                })
             }
 
 
