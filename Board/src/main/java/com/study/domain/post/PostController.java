@@ -59,6 +59,14 @@ public class PostController {
         return "post/view";
     }
 
+    //글 수정 처리
+    @PostMapping("/post/update.do")
+    public String updatePost(final PostRequest params) {
+        postService.updatePost(params);
+        return "redirect:/post/list.do";
+
+
+    }
 
 };
 
