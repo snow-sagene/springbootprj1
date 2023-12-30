@@ -43,10 +43,51 @@
                 </table>
                 <p class="btn_set">
                     <a th:href="@{/post/write.do( id=${post.id} )}" class="btns btn_bdr4 btn_mid">수정</a>
-                    <button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
+                    <button type="button" onclick="deletePost();" class="btns btn_bdr1 btn_mid">삭제</button>
                     <a th:href="@{/post/list.do}" class="btns btn_bdr3 btn_mid">뒤로</a>
                 </p>
             </section>
         </div> <!--/* .content */-->
     </th:block>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<! [CDATA[*/
+
+            //게시글 삭제
+            function deletePost(){
+                //1.글의 아이디 가져오기
+                let id = [[${post.id}]];
+                //2. 00번 게시글을 삭제할까요? 라는 확인 메세지 띄우기
+
+                if(confirm(id + '번 게시글을 삭제할까요?')==false){
+                    return false
+                }
+
+                //3./post/delete.do 요청을 보내면서 글의 아이디도 전달해야함
+                //글 상세보기 화면은 form과 input이 없어서 글 아이디를 어떻게 전달할지 고민
+                //url을 통해 전달하면 주소만 입력하면 글삭제가 이루어지는 보안에 매우 안좋은 백엔드가 되기 때문에 안됨
+                //ajax, fetch, form 중에 form을 쓰는게 좋다. 나머지 둘은 화면 전체가 바뀌기 때문
+                const formHtml = `
+                    <form id="deleteForm" action="/post/delete.do" method="post">
+                        <input type="hidden" id="id" name="id" value="${id}" />
+                    </form>
+                `;
+
+                //문자열을 진짜 html로 바꿔주는 함수
+                const doc = new DOMParser().parseFromString(formHtml, 'text/html');
+                const form = doc.body.firstChild;
+                document.body.append(form);
+                document.getElementById('deleteForm').submit();
+
+            }
+            /*]]*/
+        </script>
+    </th:block>
+
+
+
+
+
+
 </html>

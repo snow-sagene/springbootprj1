@@ -68,5 +68,13 @@ public class PostController {
 
     }
 
+    //글삭제처리
+    @PostMapping("/post/delete.do")
+    public void deletePost(final PostRequest params) {
+        System.out.println("글삭제처리"+params);
+
+
+    }
+
 };
 
