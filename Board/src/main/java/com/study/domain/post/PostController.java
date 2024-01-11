@@ -33,7 +33,7 @@ public class PostController {
     @PostMapping("/post/save.do")
     public String savePost(final PostRequest params) {
         postService.savePost(params);
-        return "post/write";
+        return "redirect:/post/list.do";
 
 
     }
@@ -70,9 +70,12 @@ public class PostController {
 
     //글삭제처리
     @PostMapping("/post/delete.do")
-    public void deletePost(final PostRequest params) {
+    public String deletePost(final PostRequest params) {
         System.out.println("글삭제처리"+params);
-
+        postService.deletePost(params.getId());
+        //void면 요청 스트링 그대로 return 해주는 것과 같ㄷ.ㅏ return "/post/delete"
+        //글의 리스트를 화면에 보여달라는 요청 ("/post/list.do")을 보내야함
+        return "redirect:/post/list.do";
 
     }
 
