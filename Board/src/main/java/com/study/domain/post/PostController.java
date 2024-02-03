@@ -1,6 +1,7 @@
 package com.study.domain.post;
 
 import com.study.common.dto.MessageDto;
+import com.study.common.dto.SearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,9 +45,9 @@ public class PostController {
 
     //게시글 리스트 페이지
     @GetMapping("post/list.do")
-    public String openPostList(Model model){
+    public String openPostList(SearchDto params, Model model){
         //서비스에 들어가서 글의 리스트 받아오기
-        List<PostResponse> posts = postService.findAllPost();
+        List<PostResponse> posts = postService.findAllPost(params);
 
         //모델에 담아서 화면에 리턴
         model.addAttribute("posts", posts);

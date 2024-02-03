@@ -71,7 +71,7 @@
 
 
     <!-- 게시글 리스트 조회 -->
-    <select id="findAll" resultType="com.study.domain.post.PostResponse">
+    <select id="findAll" parameterType="com.study.common.dto.SearchDto" resultType="com.study.domain.post.PostResponse">
         SELECT
             <include refid="postColumns" />
         FROM
@@ -80,6 +80,8 @@
             delete_yn = 0
         ORDER BY
             id DESC
+        LIMIT #{offset}, #{recordSize}
+        /*오프셋 다음숫자부터 recordSize 만큼 조회*/
     </select>
 
 </mapper>

@@ -28,4 +28,20 @@ public class PostServiceTest {
 
 
     }
+        @Test
+        void saveByForeach() {
+            for (int i = 13; i <= 1000; i++) {
+                PostRequest params = new PostRequest();
+                params.setTitle(i + "번 게시글 제목");
+                params.setContent("junit으로 넣은" +i + "번 게시글 내용");
+                params.setWriter("테스터" + i);
+                params.setNoticeYn(false);
+                postService.savePost(params);
+            }
+    }
+
+
+
+
+
 }
