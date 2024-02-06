@@ -1,5 +1,6 @@
 package com.study;
 
+import com.study.common.dto.SearchDto;
 import com.study.domain.post.PostRequest;
 import com.study.domain.post.PostService;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,11 @@ public class PostServiceTest {
             }
     }
 
+        @Test
+        void SelectAll(){
+            SearchDto params = new SearchDto();
+            postService.findAllPost(params);
+        }
 
 
 
