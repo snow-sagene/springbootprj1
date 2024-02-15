@@ -2,6 +2,7 @@ package com.study.domain.post;
 
 import com.study.common.dto.MessageDto;
 import com.study.common.dto.SearchDto;
+import com.study.common.paging.PagingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,10 +46,10 @@ public class PostController {
     @GetMapping("post/list.do")
     public String openPostList(SearchDto params, Model model){
         //서비스에 들어가서 글의 리스트 받아오기
-        List<PostResponse> posts = postService.findAllPost(params);
+        PagingResponse<PostResponse> response = postService.findAllPost(params);
 
         //모델에 담아서 화면에 리턴
-        model.addAttribute("posts", posts);
+        model.addAttribute("responses", response);
         return "post/list";
     }
 
