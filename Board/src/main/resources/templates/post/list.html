@@ -43,7 +43,7 @@
                         </tr>
                     </thead>
 
-                    <!--/*리스트 데이터 렌더링 영역 *-->
+                    <!--/*리스트 데이터 렌더링 영역 */-->
                     <tbody id="list">
 
 
@@ -71,41 +71,41 @@
             window.onload = () => {
                 // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
                 findAllPost();
+
             }
 
 
             // 게시글 리스트 조회
             function findAllPost() {
-
                 // 1. PagingResponse의 멤버인 List<T> 타입의 list를 의미
                 const list = [[ ${response.list} ]];
-
                 // 2. 리스트가 비어있는 경우, 행에 "검색 결과가 없다"는 메시지를 출력하고, 페이지 번호(페이지네이션) HTML을 제거(초기화)한 후 로직을 종료
                 if ( !list.length ) {
                     document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
                     drawPage();
                 }
-
+                console.log("1");
                 // 3. PagingResponse의 멤버인 pagination을 의미
                 const pagination = [[ ${response.pagination} ]];
-
+                console.log("2");
                 // 4. @ModelAttribute를 이용해서 뷰(HTML)로 전달한 SearchDto 타입의 객체인 params를 의미
                 const params = [[ ${params} ]];
-
+                console.log("3");
                 // 5. 리스트에 출력되는 게시글 번호를 처리하기 위해 사용되는 변수 (리스트에서 번호는 페이지 정보를 이용해서 계산해야 함)
                 let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
-
+                console.log("4");
                 // 6. 리스트 데이터 렌더링
                 drawList(list, num);
-
+                console.log("5");
                 // 7. 페이지 번호 렌더링
                 drawPage(pagination, params);
+                console.log("6");
             }
 
 
             // 리스트 HTML draw
             function drawList(list, num) {
-
+                console.log("drawlist 실행됨");
                 // 1. 렌더링 할 HTML을 저장할 변수
                 let html = '';
 
@@ -133,7 +133,7 @@
 
             // 페이지 HTML draw
             function drawPage(pagination, params) {
-
+                console.log("drawpage 실행됨");
                 // 1. 필수 파라미터가 없는 경우, 페이지 번호(페이지네이션) HTML을 제거(초기화)한 후 로직 종료
                 if ( !pagination || !params ) {
                     document.querySelector('.paging').innerHTML = '';

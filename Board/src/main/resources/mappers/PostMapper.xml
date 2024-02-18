@@ -81,7 +81,7 @@
         ORDER BY
             id DESC
         LIMIT #{pagination.limitStart}, #{recordSize}
-        /*오프셋 다음숫자부터 recordSize 만큼 조회-> pagination으로 바꿈*/
+        <!--오프셋 다음숫자부터 recordSize 만큼 조회-> pagination으로 바꿈*/-->
     </select>
 <!-- 게시글 수 카운팅 -->
     <select id="count" parameterType="com.study.common.dto.SearchDto" resultType="int">

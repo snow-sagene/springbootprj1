@@ -69,9 +69,7 @@ public class PostService {
         return id;
     }
 
-
-
-            /**
+    /**
      * 게시글 리스트 조회
      * @param params - search conditions
      * @return list & pagination information

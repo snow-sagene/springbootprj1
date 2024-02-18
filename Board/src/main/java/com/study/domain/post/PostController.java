@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,12 +45,12 @@ public class PostController {
 
     //게시글 리스트 페이지
     @GetMapping("post/list.do")
-    public String openPostList(SearchDto params, Model model){
+    public String openPostList(@ModelAttribute("params") final SearchDto params, Model model){
         //서비스에 들어가서 글의 리스트 받아오기
         PagingResponse<PostResponse> response = postService.findAllPost(params);
 
         //모델에 담아서 화면에 리턴
-        model.addAttribute("responses", response);
+        model.addAttribute("response", response);
         return "post/list";
     }
 
