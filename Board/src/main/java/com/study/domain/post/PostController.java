@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 public class PostController {
@@ -77,10 +80,10 @@ public class PostController {
 
     //글삭제처리
     @PostMapping("/post/delete.do")
-    public String deletePost(final PostRequest params, Model model) {
+    public String deletePost(final PostRequest params, final SearchDto queryParams, Model model) {
         System.out.println("글삭제처리"+params);
         postService.deletePost(params.getId());
-        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/post/list.do", RequestMethod.GET, queryParamsToMap(queryParams));
 
         //void면 요청 스트링 그대로 return 해주는 것과 같ㄷ.ㅏ return "/post/delete"
         //글의 리스트를 화면에 보여달라는 요청 ("/post/list.do")을 보내야함
@@ -92,6 +95,17 @@ public class PostController {
     private String showMessageAndRedirect(final MessageDto params, Model model) {
         model.addAttribute("params", params);
         return "common/messageRedirect";
+    }
+
+        // 쿼리 스트링 파라미터를 Map에 담아 반환
+    private Map<String, Object> queryParamsToMap(final SearchDto queryParams) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("page", queryParams.getPage());
+        data.put("recordSize", queryParams.getRecordSize());
+        data.put("pageSize", queryParams.getPageSize());
+        data.put("keyword", queryParams.getKeyword());
+        data.put("searchType", queryParams.getSearchType());
+        return data;
     }
 };
 

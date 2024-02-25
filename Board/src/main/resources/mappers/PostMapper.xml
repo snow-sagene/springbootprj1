@@ -38,7 +38,7 @@
     <!-- 게시글 상세정보 조회 -->
     <select id="findById" parameterType="long" resultType="com.study.domain.post.PostResponse">
         SELECT
-            <include refid="postColumns" />
+            COUNT(*)
         FROM
             tb_post
         WHERE
@@ -84,7 +84,8 @@
         LIMIT #{pagination.limitStart}, #{recordSize}
         <!--오프셋 다음숫자부터 recordSize 만큼 조회-> pagination으로 바꿈*/-->
     </select>
-<!-- 게시글 수 카운팅 -->
+
+    <!-- 게시글 수 카운팅 -->
     <select id="count" parameterType="com.study.common.dto.SearchDto" resultType="int">
         SELECT
             COUNT(*)
@@ -92,6 +93,7 @@
             tb_post
         WHERE
             delete_yn = 0
+            <include refid="search" />
     </select>
 
 
